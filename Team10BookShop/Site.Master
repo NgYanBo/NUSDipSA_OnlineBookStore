@@ -1,0 +1,73 @@
+﻿<%--<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Team10BookShop.SiteMaster" %>--%>
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script type="text/javascript">
+        $(function () {
+            $('[id*=submenu]').addClass('sub-menu open');
+            $('[id*=Master_Pages]').attr("aria-expanded", true);
+ 
+            $('.subMenus').click(function () {
+                localStorage.setItem('lastTab', $(this).attr('id'));
+            });
+        });
+        function pageLoad() {
+            var isActiveLink = false;
+            $.each($('.subMenus'), function () {
+                if ($(this).attr('id') == localStorage.getItem('lastTab')) {
+                    $(this).closest('li').addClass('active');
+                    localStorage.removeItem('lastTab');
+                    isActiveLink = true;
+                }
+                else {
+                    $(this).closest('li').removeClass('active');
+                }
+            });
+            if (!isActiveLink) {
+                $('[id*=Master_Designation]').closest('li').addClass('active');
+            }
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager runat="server" />
+    <div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li id="submenu" class="sub-menu"><a href="#" id="Master_Pages" class="dropdown-toggle"
+                    data-toggle="dropdown" role="button" aria-haspopup="true" runat="server">&nbsp;<i
+                        class="fa fa-cogs"> </i><span>Master Pages</span><i class="caret"></i> </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="subMenus" id="Master_Designation" runat="server" href="Master_Designation.aspx">
+                            Designation</a></li>
+                        <li><a class="subMenus" id="Master_District" runat="server" href="Master_District.aspx">
+                            Distrct</a></li>
+                        <li><a class="subMenus" id="Master_Taluka" runat="server" href="Master_Taluka.aspx">
+                            Taluka</a></li>
+                        <li><a class="subMenus" id="Master_Village" runat="server" href="Master_Village.aspx">
+                            Village</a></li>
+                        <li><a class="subMenus" id="Master_Title" runat="server" href="Master_Title.aspx">Title</a></li>
+                        <li><a class="subMenus" id="Master_Days_Limit" runat="server" href="Master_Days_Limit.aspx">
+                            Days Limit</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>
+</html>
